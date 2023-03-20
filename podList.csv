@@ -1,0 +1,12 @@
+name,version
+FirebaseCore,10.4.0
+FirebaseCoreInternal,10.4.0
+FirebaseCrashlytics,10.4.0
+FirebaseInstallations,10.4.0
+GoogleDataTransport,9.2.0
+GoogleUtilities,7.11.0
+lottie-ios,3.3.0
+lottie-ios,4.1.3
+nanopb,2.30909.0
+PromisesObjC,2.1.0
+SkyFloatingLabelTextField,4.0.0
