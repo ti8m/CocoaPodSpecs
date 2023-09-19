@@ -5,7 +5,7 @@ CSV_FILE=$1
 ME=$(basename "$0")
 BASE_FOLDER=$(cd $(dirname "${BASH_SOURCE[0]}")/.. && pwd)
 
-DEPENDS="git md5"
+DEPENDS="git md5sum"
 
 
 die() {
@@ -48,10 +48,11 @@ fi
 git fetch "$REMOTE_NAME" --depth=1
 
 # Read the csv-file but skip the header, ignore trailing newilne
-tail +2 "${CSV_FILE}" |
+tail -n +2 "${CSV_FILE}" |
   while IFS=',' read -r NAME VERSION || [ -n "${NAME}" ]; do
-    HASH_VALUE=$(echo -n "$NAME" | md5)
+    HASH_VALUE=$(echo -n "$NAME" | md5sum)
     POD_DIRECTORY="Specs/${HASH_VALUE:0:1}/${HASH_VALUE:1:1}/${HASH_VALUE:2:1}/$NAME/$VERSION"
+    echo "Fetch pod specs for $NAME with hash [$HASH_VALUE] from upstream into: $POD_DIRECTORY"
     ls "$POD_DIRECTORY" >/dev/null 2>&1 || {
       echo "Checking out $POD_DIRECTORY from $REMOTE_NAME/master"
       git checkout "$REMOTE_NAME"/master "$POD_DIRECTORY" ||
